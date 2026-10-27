@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CareerAtlas AI</title>
+  <meta name="description" content="AI career companion for IEEE Young Professionals — career score, skill gap analysis, IEEE learning recommendations and mentor matching.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-in">
+      <a class="brand" href="#" data-go="intake" aria-label="CareerAtlas AI home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M16 6l3.2 9.8L16 26l-3.2-10.2z" fill="currentColor"/><circle cx="16" cy="16" r="2.2" fill="var(--surface)"/></svg>
+        </span>
+        <span class="brand-text"><strong id="appName">CareerAtlas AI</strong><small id="eventName">IEEE Young Professionals Summit</small></span>
+      </a>
+      <nav class="nav" id="nav" hidden>
+        <a href="#overview">Overview</a>
+        <a href="#gaps">Gap analysis</a>
+        <a href="#learn">IEEE learning</a>
+        <a href="#mentors">Mentors</a>
+        <a href="#search">Search</a>
+        <a href="#assistant" id="navAssistant" hidden>Assistant</a>
+      </nav>
+      <button class="btn ghost sm" id="btnRestart" hidden>New analysis</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ INTAKE ============ -->
+    <section id="intake" class="view">
+      <div class="wrap intake-grid">
+        <div class="hero">
+          <p class="eyebrow">From resume to referral</p>
+          <h1>See where your career stands — and exactly what to do next.</h1>
+          <p class="lede">CareerAtlas AI reads your resume, LinkedIn and GitHub, scores your profile, finds the gaps for the role you want, and maps each gap to IEEE courses, papers, standards and mentors.</p>
+          <ul class="hero-points">
+            <li><span class="dot"></span>Career score across six dimensions</li>
+            <li><span class="dot"></span>Role match and gap analysis with a what-if simulator</li>
+            <li><span class="dot"></span>IEEE learning path and mentor matches</li>
+          </ul>
+          <p class="privacy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="none" stroke="currentColor" stroke-width="2"/></svg><span id="privacyNote">Your resume is analyzed in your browser and is not uploaded or stored.</span></p>
+        </div>
+
+        <form class="card intake-card" id="intakeForm" novalidate>
+          <h2>Build your profile</h2>
+          <p class="muted small">Add at least one source. More sources = a more accurate score.</p>
+
+          <label class="drop" id="dropResume" tabindex="0">
+            <input type="file" id="fileResume" accept=".pdf,.txt,.md,application/pdf,text/plain" hidden>
+            <span class="drop-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+            <span class="drop-text"><strong>Resume</strong><span class="muted" data-default="PDF or text — drop here or click">PDF or text — drop here or click</span></span>
+            <span class="drop-state"></span>
+          </label>
+
+          <label class="drop" id="dropLinkedIn" tabindex="0">
+            <input type="file" id="fileLinkedIn" accept=".pdf,application/pdf" hidden>
+            <span class="drop-icon li" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 10v6M8 7.5v.01M12 16v-6m0 2.5c0-1.4 1-2.5 2.3-2.5S16 11 16 12.5V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></span>
+            <span class="drop-text"><strong>LinkedIn profile <em>optional</em></strong><span class="muted" data-default="On LinkedIn: your profile → More → Save to PDF">On LinkedIn: your profile → More → Save to PDF</span></span>
+            <span class="drop-state"></span>
+          </label>
+
+          <div class="field">
+            <label for="ghUser"><strong>GitHub</strong> <em>optional</em></label>
+            <div class="input-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 00-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 015 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0012 2z"/></svg>
+              <input id="ghUser" type="text" placeholder="username or github.com/username" autocomplete="off" spellcheck="false">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="targetRole"><strong>Target role</strong></label>
+            <select id="targetRole"><option value="">Pick the best match for me</option></select>
+          </div>
+
+          <details class="more">
+            <summary>Paste extra details <em>optional</em></summary>
+            <textarea id="extraText" rows="4" placeholder="Paste your LinkedIn About/Skills, Google Scholar or ORCID publications, certifications, IEEE volunteer roles…"></textarea>
+          </details>
+
+          <p class="form-error" id="formError" role="alert" hidden></p>
+          <div class="actions">
+            <button class="btn primary" type="submit" id="btnAnalyze">Analyze my profile</button>
+            <button class="btn ghost" type="button" id="btnSample">Try a sample profile</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ LOADING ============ -->
+    <section id="loading" class="view" hidden>
+      <div class="wrap loading-box">
+        <div class="spinner" aria-hidden="true"></div>
+        <p id="loadingText">Reading your profile…</p>
+      </div>
+    </section>
+
+    <!-- ============ DASHBOARD ============ -->
+    <section id="dashboard" class="view" hidden>
+      <div class="wrap">
+        <div class="dash-head">
+          <div>
+            <h1 id="greet">Your career overview</h1>
+            <p class="muted" id="greetSub"></p>
+          </div>
+          <div class="target-pick">
+            <label for="targetRole2" class="muted small">Target role</label>
+            <select id="targetRole2"></select>
+          </div>
+        </div>
+
+        <div class="grid g-overview" id="overview">
+          <article class="card score-card">
+            <h3>Overall Career Score</h3>
+            <div class="score-wrap">
+              <div class="ring" id="scoreRing"><svg viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="52"/><circle class="ring-fg" cx="60" cy="60" r="52"/></svg><div class="ring-val"><span id="scoreVal">0</span><small>/100</small></div></div>
+              <div>
+                <p class="band" id="bandLabel"></p>
+                <p class="muted small" id="bandNote"></p>
+              </div>
+            </div>
+            <ul class="bars" id="subScores"></ul>
+          </article>
+
+          <article class="card">
+            <h3>Profile &amp; data sources</h3>
+            <p class="big-pct"><span id="completePct">0%</span> complete</p>
+            <ul class="sources" id="sourceList"></ul>
+            <h4 class="mt">Skills detected <span class="pill" id="skillCount">0</span></h4>
+            <div class="chips" id="skillChips"></div>
+          </article>
+
+          <article class="card">
+            <h3>Top role matches</h3>
+            <ul class="roles" id="roleList"></ul>
+            <a class="link" id="jobsLink" target="_blank" rel="noopener">Browse openings on the IEEE Job Site →</a>
+          </article>
+        </div>
+
+        <h2 class="section-title">Recommended next steps</h2>
+        <div class="steps" id="nextSteps"></div>
+
+        <div class="grid g-gap" id="gaps">
+          <article class="card">
+            <h3>Skill gap analysis</h3>
+            <p class="muted small">Target role: <strong id="gapRole"></strong></p>
+            <div class="gap-body">
+              <div class="ring sm" id="gapRing"><svg viewBox="0 0 120 120"><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent-2)"/><stop offset="1" stop-color="var(--accent)"/></linearGradient></defs><circle class="ring-bg" cx="60" cy="60" r="52"/><circle class="ring-fg grad" cx="60" cy="60" r="52"/></svg><div class="ring-val"><span id="gapVal">0</span><small>% match</small></div></div>
+              <div class="gap-lists">
+                <h4>Top gaps to address</h4>
+                <ul class="gap-list" id="gapList"></ul>
+                <h4 class="mt">You already have</h4>
+                <div class="chips" id="haveChips"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card sim-card">
+            <h3>Career simulator</h3>
+            <p class="muted small">Tick the skills you plan to learn and watch your match change.</p>
+            <div class="sim-meter">
+              <div class="sim-row"><span>Today</span><div class="meter"><i id="simNow"></i></div><b id="simNowV">0%</b></div>
+              <div class="sim-row"><span>With plan</span><div class="meter plan"><i id="simPlan"></i></div><b id="simPlanV">0%</b></div>
+            </div>
+            <ul class="sim-list" id="simList"></ul>
+          </article>
+        </div>
+
+        <div class="grid g-two">
+          <article class="card" id="resumeCard">
+            <h3>Resume analyzer</h3>
+            <div id="resumeBody"></div>
+          </article>
+          <article class="card" id="ghCard">
+            <h3>GitHub highlights</h3>
+            <div id="ghBody"></div>
+          </article>
+        </div>
+
+        <section id="learn">
+          <h2 class="section-title">Your IEEE learning path</h2>
+          <p class="muted section-sub">Mapped to the gaps for <strong class="roleName"></strong>.</p>
+          <div class="learn-grid" id="learnGrid"></div>
+        </section>
+
+        <section id="mentors">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Mentors &amp; referrals</h2>
+              <p class="muted section-sub">IEEE members who can help with your gaps for <strong class="roleName"></strong>.</p>
+            </div>
+            <a class="btn ghost sm" id="mentorSignup" target="_blank" rel="noopener" hidden>Become a mentor</a>
+          </div>
+          <div class="mentor-grid" id="mentorGrid"></div>
+          <p class="muted small" id="mentorNote"></p>
+        </section>
+
+        <section id="search" class="card search-card">
+          <h3>Global IEEE search</h3>
+          <form id="searchForm" class="search-row">
+            <input id="searchInput" type="search" placeholder="Search IEEE — e.g. MLOps, smart grid, IEEE 802.11" aria-label="Search IEEE">
+            <button class="btn primary" type="submit">Search</button>
+          </form>
+          <div class="chips search-scopes" id="searchScopes"></div>
+        </section>
+
+        <section id="assistant" class="card chat-card" hidden>
+          <h3>AI career assistant</h3>
+          <p class="muted small">Ask anything about your next step. Answers use your analysis above (not your full resume).</p>
+          <div class="chat-log" id="chatLog" aria-live="polite"></div>
+          <div class="chat-suggest" id="chatSuggest"></div>
+          <form id="chatForm" class="search-row">
+            <input id="chatInput" type="text" placeholder="e.g. How do I move into ML engineering in 6 months?" autocomplete="off" aria-label="Message">
+            <button class="btn primary" type="submit" id="chatSend">Send</button>
+          </form>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-in">
+      <span>CareerAtlas AI · built by IEEE Young Professionals volunteers</span>
+      <span class="muted" id="footNote">Scores are guidance, not a hiring decision. Verify important information.</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="config.js"></script>
+  <script src="data/skills.js"></script>
+  <script src="data/roles.js"></script>
+  <script src="data/ieee.js"></script>
+  <script src="data/mentors.js"></script>
+  <script src="data/sample.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

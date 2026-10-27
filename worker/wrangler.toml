@@ -1,0 +1,20 @@
+name = "careeratlas-api"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+# Comma-separated list of sites allowed to call this API (your summit site + GitHub Pages URL)
+ALLOWED_ORIGINS = "https://YOUR-SUMMIT-SITE.org,https://YOUR-GITHUB-USERNAME.github.io"
+# A small, low-cost Claude model is plenty for career Q&A
+MODEL = "claude-haiku-5-5"
+# Cost guardrail: chat messages per visitor per day
+DAILY_CHAT_LIMIT = "25"
+
+# Create with:  npx wrangler kv namespace create CA_KV   and paste the id below
+[[kv_namespaces]]
+binding = "CA_KV"
+id = "PASTE_KV_NAMESPACE_ID_HERE"
+
+# Secrets (never commit these) — set with:
+#   npx wrangler secret put ANTHROPIC_API_KEY
+#   npx wrangler secret put STATS_KEY
